@@ -29,3 +29,6 @@ timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
  cp mongo.repo /etc/yum.repos.d/mongo.repo
     validate $? "adding mongo repo"
+
+    dnf install mongodb-org -y 
+    validate $? "installing mongodb"
