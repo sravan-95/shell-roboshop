@@ -28,4 +28,4 @@ timestamp=$(date "+%Y-%m-%d %H:%M:%S")
  }
 
  cp mongo.repo /etc/yum.repos.d/mongo.repo
-    validatte $? "adding mongo repo"
+    validate $? "adding mongo repo"
