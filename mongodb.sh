@@ -35,4 +35,9 @@ timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
     systemctl enable --now mongod 
     validate $? "starting and enabling mongodb"
-    
+
+    sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+    validate $? "allowing remote connection to mongodb"
+
+    systemctl restart mongod
+    validate $? "restarting mongodb"
