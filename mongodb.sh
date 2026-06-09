@@ -32,3 +32,7 @@ timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
     dnf install mongodb-org -y &>> $LOGS_FILE
     validate $? "installing mongodb"
+
+    systemctl enable --now mongod 
+    validate $? "starting and enabling mongodb"
+    
