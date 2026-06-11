@@ -5,6 +5,7 @@ sudo mkdir -p $LOGS_FOLDER
 sudo chown -R ec2-user:ec2-user $LOGS_FOLDER
 sudo chmod -R 755 $LOGS_FOLDER
 LOGS_FILE="$LOGS_FOLDER/$0.log"
+SCRIPT_DIR=$PWD
 
 USERID=$(id -u)
 timestamp=$(date "+%Y-%m-%d %H:%M:%S")
@@ -39,5 +40,28 @@ if [ $? -ne 0 ]; then
 else
 echo -e "system user roboshop already created...$Y skipping $N"
 fi
+ rm -rf /app
+ validate $? "removing existing code"
+
+ rm -rf /tmp/catalogue.zip
+ validate $? "removed catalogue zip"
+
  mkdir -p /app &>>$LOGS_FILE
  validate $? "creating app directory"
+
+ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+cd /app 
+unzip /tmp/catalogue.zip
+validate $? "downloaded and extracted catalogue code"
+
+npm install &>>$LOGS_FILE
+validate $? "installing nodejs dependencies"
+
+cp $SCRIPT_DIR/catalogue.service /systemd/system/catalogue.service
+validate $? "created systemctl service"
+
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
+validate $? "mongorepo added"
+
+dnf install mongodb-mongosh -y &>>$LOGS_FILE
+validate $? "installed mongodb client"
