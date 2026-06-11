@@ -46,7 +46,7 @@ fi
  rm -rf /tmp/catalogue.zip
  validate $? "removed catalogue zip"
 
- mkdir -p /app &>>$LOGS_FILE
+ mkdir /app &>>$LOGS_FILE
  validate $? "creating app directory"
 
  curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
