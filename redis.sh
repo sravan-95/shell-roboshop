@@ -27,15 +27,15 @@ timestamp=$(date "+%Y-%m-%d %H:%M:%S")
     fi
  }
 
-    dnf module disable redis -y
-    dnf module enable redis:7 -y
-    dnf install redis -y 
+    dnf module disable redis -y &>> $LOGS_FILE
+    dnf module enable redis:7 -y &>> $LOGS_FILE
+    dnf install redis -y &>> $LOGS_FILE
     validate $? "installing redis:7"
 
 sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected mode/ c protected mode no' /etc/redis.conf
 validate $? "allowing remote connections"
 
-systemctl enable redis 
-systemctl start redis 
+systemctl enable redis &>> $LOGS_FILE
+systemctl start redis &>> $LOGS_FILE
 validate $? "started redis"
 
