@@ -70,11 +70,11 @@ INDEX=$(mongosh --host mongodb.daws90s.shop --eval 'db.getMongo().getDBNames().i
 
 if [ $INDEX -lt 0 ]; then
     mongosh --host mongodb.daws90s.shop </app/db/master-data.js &>>$LOGS_FILE
-    VALIDATE $? "Load Products"
+    validate $? "Load Products"
 else
     echo -e "Products already loaded ... $Y SKIPPING $N"
 fi
 
 systemctl enable catalogue &>>$LOGS_FILE
 systemctl restart catalogue &>>$LOGS_FILE
-VALIDATE $? "Restarting catalogue"
+validate $? "Restarting catalogue"
