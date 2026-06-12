@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOGS_FOLDER="var/log/roboshop"
+LOGS_FOLDER="/var/log/roboshop"
 sudo mkdir -p $LOGS_FOLDER
 sudo chown -R ec2-user:ec2-user $LOGS_FOLDER
 sudo chmod -R 755 $LOGS_FOLDER
@@ -46,7 +46,7 @@ fi
  rm -rf /tmp/catalogue.zip
  validate $? "removed catalogue zip"
 
- mkdir /app &>>$LOGS_FILE
+ mkdir -p /app &>>$LOGS_FILE
  validate $? "creating app directory"
 
  curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
