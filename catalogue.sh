@@ -71,7 +71,7 @@ INDEX=$(mongosh --host mongodb.daws90s.shop --eval 'db.getMongo().getDBNames().i
 if [ $INDEX -lt 0 ]; then
     mongosh --host mongodb.daws90s.shop </app/db/master-data.js &>>$LOGS_FILE
     validate $? "Load Products"
-else
+else    
     echo -e "Products already loaded ... $Y SKIPPING $N"
 fi
 
