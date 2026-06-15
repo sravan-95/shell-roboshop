@@ -41,7 +41,11 @@ do
         --output text)
         echo "launched instance: $INSTANCE_ID"
 
-              if [ $instance == "frontend" ]; then
+        else 
+        echo "roboshop-$instance already running: $INSTANCE_ID"
+        fi
+
+                  if [ $instance == "frontend" ]; then
               IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID \
                  --query 'Reservations[*].Instances[*].PublicIpAddress' \
                  --output text)
@@ -76,9 +80,6 @@ do
         }
     '
         echo "updated route53 record for: $instance"
-        else 
-        echo "roboshop-$instance already running: $INSTANCE_ID"
-        fi
     else 
         if [ $INSTANCE_ID == "none" ]; then
         echo "$instance already deleted"
