@@ -79,6 +79,13 @@ do
         else 
         echo "roboshop-$instance already running: $INSTANCE_ID"
         fi
+    else 
+        if [ $INSTANCE_ID == "none" ]; then
+        echo "$instance already deleted"
+        else 
+        aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+        echo "terminating instance: $instance"
+        fi
     fi    
 done
    
