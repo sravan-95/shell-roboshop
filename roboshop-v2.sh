@@ -30,7 +30,7 @@ for instance in $@
 do
     INSTANCE_ID=$(get_instance_id $instance)
     if [ $ACTION == "create" ]; then
-        if [ $INSTANCE_ID == "none" ]; then
+        if [ $INSTANCE_ID == none ]; then
         echo "launching instance: roboshop-$instance"
         INSTANCE_ID=$(aws ec2 run-instances \
         --image-id ami-0220d79f3f480ecf5 \
