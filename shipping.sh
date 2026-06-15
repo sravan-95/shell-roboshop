@@ -9,27 +9,38 @@ SCRIPT_DIR=$PWD
 MYSQL_HOST=mysql.daws90.fun
 
 USERID=$(id -u)
-timestamp=$(date "+%Y-%m-%d %H:%M:%S")
- R="\e[31m"
- G="\e[32m"
- Y="\e[33m"
- N="\e[0m"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
+TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
- if [ $USERID -ne 0 ]; then
-    echo -e "$timestamp $R please run the script with root access $N" | tee -a $LOGS_FILE
-    exit 1 
- fi
+if [ $USERID -ne 0 ]; then
+    echo -e "$TIMESTAMP [ERROR] $R Please run this script with root access $N" | tee -a $LOGS_FILE
+    exit 1
+fi
 
- validate() {
-     if [ $1 -ne 0 ]; then
-        echo -e "$timestamp $2... $R failure $N" | tee -a $LOGS_FILE
+VALIDATE(){
+    if [ $1 -ne 0 ]; then
+        echo -e "$TIMESTAMP [ERROR] $2 ... $R FAILURE $N" | tee -a $LOGS_FILE
         exit 1
-     else 
-        echo -e "$timestamp $2...$G success $N" | tee -a $LOGS_FILE
+    else
+        echo -e "$TIMESTAMP [INFO] $2 ... $G SUCCESS $N" | tee -a $LOGS_FILE
     fi
- }
+}
 
- rm -rf /app
+dnf install maven -y &>>$LOGS_FILE
+VALIDATE $? "Installing Maven"
+
+id roboshop &>>$LOGS_FILE
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+    VALIDATE $? "Creating roboshop system user"
+else
+    echo -e "System user roboshop already created ... $Y SKIPPING $N"
+fi
+
+rm -rf /app
 VALIDATE $? "Removing existing code"
 
 rm -rf /tmp/shipping.zip
@@ -40,7 +51,6 @@ VALIDATE $? "Creating app directory"
 
 curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip  &>>$LOGS_FILE
 cd /app 
-
 unzip /tmp/shipping.zip &>>$LOGS_FILE
 VALIDATE $? "Downloaded and extracted shipping code"
 
