@@ -66,7 +66,7 @@ validate $? "mongorepo added"
 dnf install mongodb-mongosh -y &>>$LOGS_FILE
 validate $? "installed mongodb client"
 
-INDEX=$(mongosh --host mongodb.daws90s.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+INDEX=$(mongosh --host mongodb.daws90.fun --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 
 if [ $INDEX -lt 0 ]; then
     mongosh --host mongodb.daws90s.shop </app/db/master-data.js &>>$LOGS_FILE
