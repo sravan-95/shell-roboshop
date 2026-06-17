@@ -57,7 +57,7 @@ VALIDATE $? "Downloaded and extracted payment code"
 pip3 install -r requirements.txt  &>>$LOGS_FILE
 VALIDATE $? "Installing dependencies"
 
-cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
+cp $SCRIPT_DIR/payments.service /etc/systemd/system/payments.service
 VALIDATE $? "Created systemctl service"
 
 systemctl enable payment 
