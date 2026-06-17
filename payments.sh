@@ -60,6 +60,6 @@ VALIDATE $? "Installing dependencies"
 cp $SCRIPT_DIR/payments.service /etc/systemd/system/payments.service
 VALIDATE $? "Created systemctl service"
 
-systemctl enable payment 
-systemctl restart payment
-VALIDATE $? "Enable and restarted payment"
+systemctl enable payments 
+systemctl restart payments
+VALIDATE $? "Enable and restarted payments"
