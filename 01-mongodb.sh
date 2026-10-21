@@ -21,6 +21,7 @@ validate(){
         exit 1
     else
     echo -e "$2 is $G success $N" | tee -a $LOGS_FILE
+    fi
 }
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo 
