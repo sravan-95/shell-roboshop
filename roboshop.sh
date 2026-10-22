@@ -11,7 +11,7 @@ do
     --image-id ami-0055977a6e828a4f4 \
     --instance-type t3.micro \
     --security-groups "default" "roboshop-$instance" \
-	--tag-specifications "ResourceType=instance,Tags=[{Key=name,Value=roboshop-$instance}]" \
+	--tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
     --query "Instances[0].InstanceId" \
     --output text)
 
