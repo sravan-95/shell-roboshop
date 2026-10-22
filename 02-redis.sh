@@ -28,11 +28,11 @@ validate(){
 dnf module disable redis -y | &>> $LOGS_FILE
 validate $? "disable redis7"
 
-dnf module enable redis:7 -y | &>> $LOGS_FILE
+dnf module enable redis -y | &>> $LOGS_FILE
 validate $? "enable redis"
 
 dnf install redis -y | &>> $LOGS_FILE
-validate $? "Installing Redis:7"
+validate $? "Installing Redis"
 
 systemctl enable redis &>> $LOGS_FILE
 validate $? "enable redis"
