@@ -4,7 +4,7 @@
 
 AMI_ID="ami-0055977a6e828a4f4"
 ZONE_ID="Z026470035I085AUUNRXW" # replace with your zone ID
-DOMAIN_NAME="daws90s.fun" # replace with your domain name
+DOMAIN_NAME="daws90.fun" # replace with your domain name
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
