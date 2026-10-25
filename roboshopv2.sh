@@ -2,9 +2,9 @@
 
 #export PATH=$PATH:/usr/local/bin
 
-AMI_ID="ami-0220d79f3f480ecf5"
-ZONE_ID="Z07086101C1CVP7AT2UK4" # replace with your zone ID
-DOMAIN_NAME="daws90s.shop" # replace with your domain name
+AMI_ID="ami-0055977a6e828a4f4"
+ZONE_ID="Z026470035I085AUUNRXW" # replace with your zone ID
+DOMAIN_NAME="daws90s.fun" # replace with your domain name
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -40,7 +40,7 @@ do
             INSTANCE_ID=$( aws ec2 run-instances \
             --image-id $AMI_ID \
             --instance-type t3.micro \
-            --security-groups "roboshop-common" "roboshop-$instance" \
+            --security-groups "default" "roboshop-$instance" \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
             --query 'Instances[0].InstanceId' \
             --output text 
